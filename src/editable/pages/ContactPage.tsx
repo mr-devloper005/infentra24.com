@@ -1,44 +1,100 @@
 'use client'
 
-import { FileText, Mail, Megaphone } from 'lucide-react'
+import { CheckCircle2, Clock3, Mail, MessageSquare, ShieldCheck } from 'lucide-react'
 import { pagesContent } from '@/editable/content/pages.content'
 import { EditableContactLeadForm } from '@/editable/components/EditableContactLeadForm'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
-
-const desks = [
-  { icon: FileText, title: 'Editorial desk', body: 'Send story ideas, corrections, source material, and publication questions.' },
-  { icon: Megaphone, title: 'Media partnerships', body: 'Discuss distribution, syndication, newsroom collaborations, and campaigns.' },
-  { icon: Mail, title: 'General support', body: 'Reach the team for account, publishing, or site-related help.' },
-]
+import { Reveal } from '@/editable/components/Motion'
 
 export default function ContactPage() {
+  const contact = pagesContent.contact
+
   return (
     <EditableSiteShell>
-      <main className="bg-[#f7f4ef] text-[#111]">
-        <section className="border-b border-black bg-white">
-          <div className="mx-auto max-w-[var(--editable-container)] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#c92f2f]">{pagesContent.contact.eyebrow}</p>
-            <h1 className="editorial-brand mt-4 max-w-5xl text-6xl font-black leading-[0.92] tracking-[-0.055em] sm:text-8xl">{pagesContent.contact.title}</h1>
-            <p className="mt-6 max-w-2xl border-l-4 border-[#c92f2f] pl-5 text-base font-semibold leading-8 text-black/65">{pagesContent.contact.description}</p>
-          </div>
-        </section>
+      <main className="relative overflow-hidden text-white">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-[-12rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[var(--slot4-accent-fill)]/20 blur-[140px]" />
+          <div className="absolute right-[-8rem] top-32 h-72 w-72 rounded-full bg-[var(--slot4-accent-2)]/12 blur-[120px]" />
+        </div>
 
-        <section className="mx-auto grid max-w-[var(--editable-container)] border-x border-black bg-white lg:grid-cols-[0.72fr_1.28fr]">
-          <aside className="border-b border-black bg-[#171717] text-white lg:border-b-0 lg:border-r">
-            {desks.map((desk, index) => (
-              <div key={desk.title} className="border-b border-white/25 p-7 last:border-b-0 sm:p-9">
-                <div className="flex items-center justify-between"><desk.icon className="h-5 w-5 text-[#f34a43]" /><span className="text-xs font-black text-white/45">0{index + 1}</span></div>
-                <h2 className="editorial-serif mt-6 text-3xl font-black">{desk.title}</h2>
-                <p className="mt-3 text-sm leading-7 text-white/65">{desk.body}</p>
+        <div className="relative mx-auto max-w-[1100px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+            {/* Left column: info + expectations + trust */}
+            <div className="space-y-10">
+              <Reveal>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--slot4-accent)]">{contact.eyebrow}</p>
+                  <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-white sm:text-5xl">
+                    Let&rsquo;s get your story in front of the <span className="gradient-text">right audience</span>.
+                  </h1>
+                  <p className="mt-5 max-w-xl text-base leading-8 text-white/55">{contact.description}</p>
+                </div>
+              </Reveal>
+
+              {/* Contact info */}
+              <div className="space-y-4">
+                {contact.info.map((item, index) => (
+                  <Reveal key={item.label} delay={index * 80}>
+                    <div className="group flex gap-4 rounded-2xl border border-white/10 bg-[var(--slot4-surface-bg)] p-5 transition duration-300 hover:-translate-y-1 hover:border-white/20">
+                      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-[var(--slot4-accent)] transition group-hover:border-[var(--slot4-accent)]/40">
+                        <Mail className="h-4 w-4" />
+                      </span>
+                      <div>
+                        <h3 className="text-sm font-semibold text-white">{item.label}</h3>
+                        <p className="mt-1 text-sm leading-6 text-white/50">{item.value}</p>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
               </div>
-            ))}
-          </aside>
-          <div className="p-6 sm:p-10 lg:p-14">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#c92f2f]">Send a message</p>
-            <h2 className="editorial-serif mt-3 text-4xl font-black">{pagesContent.contact.formTitle}</h2>
-            <EditableContactLeadForm />
+
+              {/* What to expect */}
+              <Reveal variant="fade">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-7">
+                  <div className="flex items-center gap-2">
+                    <Clock3 className="h-4 w-4 text-[var(--slot4-accent)]" />
+                    <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-white/70">{contact.response.title}</h3>
+                  </div>
+                  <ul className="mt-5 space-y-3">
+                    {contact.response.points.map((point) => (
+                      <li key={point} className="flex items-start gap-3 text-sm leading-6 text-white/55">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--slot4-accent-2)]" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+
+              {/* Trust indicators */}
+              <Reveal delay={80}>
+                <div className="flex flex-wrap gap-3">
+                  {contact.trust.map((badge) => (
+                    <span
+                      key={badge}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-white/70"
+                    >
+                      <ShieldCheck className="h-3.5 w-3.5 text-[var(--slot4-accent-2)]" />
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Right column: heading + form */}
+            <Reveal variant="right" delay={120}>
+              <div className="relative rounded-[2rem] border border-white/10 bg-[var(--slot4-panel-bg)] p-6 shadow-[0_30px_90px_rgba(2,6,23,0.6)] sm:p-9">
+                <div className="flex items-center gap-2">
+                  <MessageSquare className="h-4 w-4 text-[var(--slot4-accent)]" />
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--slot4-accent)]">Send a message</p>
+                </div>
+                <h2 className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-white sm:text-3xl">{contact.formTitle}</h2>
+                <EditableContactLeadForm />
+              </div>
+            </Reveal>
           </div>
-        </section>
+        </div>
       </main>
     </EditableSiteShell>
   )
