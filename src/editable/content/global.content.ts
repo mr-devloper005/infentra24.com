@@ -3,52 +3,61 @@ import { slot4BrandConfig } from '@/editable/theme/brand.config'
 export const globalContent = {
   site: {
     name: slot4BrandConfig.siteName,
-    tagline: slot4BrandConfig.tagline || 'Independent reading platform',
+    tagline: slot4BrandConfig.tagline || 'Press release distribution & media outreach',
     domain: slot4BrandConfig.domain,
     baseUrl: slot4BrandConfig.baseUrl,
   },
   nav: {
-    tagline: 'News, media, and public updates',
+    tagline: 'Press distribution, news syndication & brand visibility',
     primaryLinks: [
-      { label: 'Latest Updates', href: '/updates' },
-      { label: 'News Media', href: '/updates?category=news-media' },
-      { label: 'Press Releases', href: '/updates?category=press-release' },
+      { label: 'Newsroom', href: '/updates' },
+      
+     
+      { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
     ],
     actions: {
-      primary: { label: 'Browse updates', href: '/updates' },
-      secondary: { label: 'Submit', href: '/contact' },
+      primary: { label: 'Distribute a release', href: '/create' },
+      secondary: { label: 'Talk to us', href: '/contact' },
     },
   },
   footer: {
-    tagline: 'Newsroom updates and distributed media',
-    description: 'A flexible media distribution surface for announcements, press coverage, public updates, and dynamic news categories.',
+    tagline: 'One platform for press releases, news syndication, and media outreach',
+    description:
+      'A modern media distribution platform that gets your announcements in front of journalists, publishers, and the right audiences — with measurable reach across hundreds of news and industry channels.',
     columns: [
       {
-        title: 'Explore',
+        title: 'Platform',
         links: [
-          { label: 'Latest Updates', href: '/updates' },
-          { label: 'News Media', href: '/updates?category=news-media' },
-          { label: 'Business News', href: '/updates?category=business' },
-          { label: 'Press Releases', href: '/updates?category=press-release' },
+          { label: 'Newsroom', href: '/updates' },
+
+          { label: 'Search the archive', href: '/search' },
         ],
       },
       {
-        title: 'Site',
+        title: 'Company',
         links: [
-          { label: 'About', href: '/about' },
+          { label: 'About us', href: '/about' },
           { label: 'Contact', href: '/contact' },
+          { label: 'Distribute a release', href: '/create' },
+        ],
+      },
+      {
+        title: 'Account',
+        links: [
+          { label: 'Log in', href: '/login' },
+          { label: 'Create account', href: '/signup' },
         ],
       },
     ],
-    bottomNote: 'Built for fast, flexible, and category-led media distribution.',
+    bottomNote: 'Built for fast, measurable, category-led media distribution.',
   },
   commonLabels: {
-    readMore: 'Read more',
+    readMore: 'Read release',
     viewAll: 'View all',
     explore: 'Explore',
     latest: 'Latest',
-    related: 'Related',
-    published: 'Published',
+    related: 'Related coverage',
+    published: 'Distributed',
   },
 } as const
