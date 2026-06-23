@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CheckCircle2 } from 'lucide-react'
 import { buildPageMetadata } from '@/lib/seo'
+import { SITE_CONFIG } from '@/lib/site-config'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
 import { EditableLocalSignupForm } from '@/editable/components/EditableLocalAuthForms'
+import { Reveal } from '@/editable/components/Motion'
 import { pagesContent } from '@/editable/content/pages.content'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -10,22 +13,46 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function SignupPage() {
+  const auth = pagesContent.auth.signup
   return (
     <EditableSiteShell>
-      <main className="bg-[#f7f4ef] text-[#111]">
-        <section className="mx-auto grid min-h-[calc(100vh-12rem)] max-w-[var(--editable-container)] border-x border-black bg-white lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="flex flex-col justify-center border-b border-black p-7 sm:p-12 lg:border-b-0 lg:border-r lg:p-16">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#c92f2f]">Create account</p>
-            <h1 className="editorial-serif mt-3 text-4xl font-black">{pagesContent.auth.signup.formTitle}</h1>
-            <EditableLocalSignupForm />
-            <p className="mt-5 border-t border-black pt-5 text-sm text-black/65">Already have an account? <Link href="/login" className="font-black text-[#c92f2f] underline-offset-4 hover:underline">{pagesContent.auth.signup.loginCta}</Link></p>
+      <main className="text-[var(--slot4-page-text)]">
+        <div className="mx-auto flex min-h-[calc(100vh-12rem)] max-w-[1100px] items-center px-4 py-16 sm:px-6 lg:px-8">
+          <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+            <Reveal>
+              <div className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-[var(--slot4-panel-bg)] p-8 sm:p-10">
+                <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[var(--slot4-accent-fill)]/20 blur-[120px]" />
+                <div className="relative">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[var(--slot4-accent)]">{auth.badge}</p>
+                  <h1 className="mt-5 max-w-md text-4xl font-semibold leading-[1.05] tracking-[-0.035em] sm:text-5xl">
+                    Create your account and start <span className="gradient-text">distributing.</span>
+                  </h1>
+                  <p className="mt-5 max-w-md text-base leading-8 text-[var(--slot4-muted-text)]">{auth.description}</p>
+                  <ul className="mt-8 grid gap-4">
+                    {auth.benefits.map((benefit) => (
+                      <li key={benefit} className="flex items-start gap-3 text-sm leading-7 text-[var(--slot4-page-text)]">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--slot4-accent)]" aria-hidden />
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-10 text-xs font-medium uppercase tracking-[0.22em] text-[var(--slot4-soft-muted-text)]">
+                    Join teams distributing on {SITE_CONFIG.name}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal variant="right" delay={120}>
+              <div className="h-full rounded-3xl border border-white/10 bg-[var(--slot4-surface-bg)] p-7 sm:p-10">
+                <h2 className="text-2xl font-semibold tracking-[-0.02em]">{auth.formTitle}</h2>
+                <EditableLocalSignupForm />
+                <p className="mt-6 border-t border-white/10 pt-6 text-sm text-white/60">
+                  Already have an account? <Link href="/login" className="font-semibold text-[var(--slot4-accent)] underline-offset-4 hover:underline">{auth.loginCta}</Link>
+                </p>
+              </div>
+            </Reveal>
           </div>
-          <div className="flex flex-col justify-center bg-[#171717] p-8 text-white sm:p-12 lg:p-16">
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#f34a43]">{pagesContent.auth.signup.badge}</p>
-            <h2 className="editorial-brand mt-5 max-w-xl text-6xl font-black leading-[0.92] tracking-[-0.055em] sm:text-8xl">{pagesContent.auth.signup.title}</h2>
-            <p className="mt-6 max-w-lg text-sm font-semibold leading-8 text-white/68">{pagesContent.auth.signup.description}</p>
-          </div>
-        </section>
+        </div>
       </main>
     </EditableSiteShell>
   )
